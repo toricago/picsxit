@@ -9,13 +9,14 @@ import {
   Container,
   Typography,
   Stack,
-  Divider,
+  Paper,
   TextField,
+  Grid,
 } from "@suid/material"
+import Layout from "../components/Layout/index"
 
 import { authState } from "../App"
 import useLobby from "../hooks/useLobby"
-import Swiper from "../components/Swiper"
 
 const popError = (text: string) => toast.error(text, { duration: 5000 })
 
@@ -49,53 +50,65 @@ const Main: Component = () => {
   }
 
   return (
-    <Box>
-      <Container maxWidth="md">
-        <Typography variant="h1" fontWeight={400}>
-          Welcome to Picsxit
-        </Typography>
-        <Typography mt={2}>
-          Get ready to experience a new twist on the classic Dixit-like game!
-          Our online game features custom cards created by AI, with unique
-          illustrations that will take your imagination on a wild ride.
-        </Typography>
-        <Typography sx={{ mt: 3, mb: 2 }} fontWeight={500}>
-          Let's get started!!
-        </Typography>
-        <Stack direction="column" spacing={2}>
-          <Button
-            variant="contained"
-            sx={{ width: "30%", height: 52 }}
-            onClick={() => loginMiddleware(onCreateLobby)}
-          >
-            Create Lobby
-          </Button>
-          <Box>
-            <TextField
-              onKeyUp={(el: any) => {
-                idValue = el.target.value
-              }}
-              sx={{ mr: 2 }}
-              label="Lobby Id"
-              variant="outlined"
-            />
+    <Layout bgcolor={"#F50057"}>
+      <Container maxWidth="sm">
+        <Paper sx={{ p: 5, mt: 5, textAlign: "center" }}>
+          <Box
+            component="img"
+            src="https://res.cloudinary.com/dz4mll3dy/image/upload/v1679738770/grid_0_ihwp5q.png"
+            alt="cover"
+            sx={{ width: "80%", height: "180px", objectFit: "cover" }}
+          />
+          <Typography variant="h5" mt={3} fontSize="28px" fontWeight={600}>
+            Welcome to Picsxit
+          </Typography>
+          <Typography fontSize="14px" mt={2}>
+            An online game inspired by poppular boardgame "Dixit", with new set
+            of cards created beautifully by ai to expand more of your
+            imagination!
+          </Typography>
+          {/* <Typography sx={{ mt: 3, mb: 2 }} fontWeight={500}>
+            Let's get started!!
+          </Typography> */}
+          <Stack sx={{ mt: 4 }} direction="column" spacing={2}>
             <Button
               variant="contained"
-              color="secondary"
-              sx={{ width: "30%", height: 52 }}
-              onClick={() => loginMiddleware(() => onJoinLobby(idValue))}
+              sx={{ height: 52 }}
+              onClick={() => loginMiddleware(onCreateLobby)}
             >
-              Join Lobby
+              Create Lobby
             </Button>
-          </Box>
-        </Stack>
-        <Divider sx={{ my: 3 }} />
+            <Grid container>
+              <Grid item xs={6}>
+                <TextField
+                  onKeyUp={(el: any) => {
+                    idValue = el.target.value
+                  }}
+                  sx={{ mr: 2 }}
+                  label="Lobby Id"
+                  variant="filled"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="outlined"
+                  fullWidth
+                  sx={{ height: 52 }}
+                  onClick={() => loginMiddleware(() => onJoinLobby(idValue))}
+                >
+                  Join Lobby
+                </Button>
+              </Grid>
+            </Grid>
+          </Stack>
+        </Paper>
         <Show when={!authState.user}>
-          <LoginButton />
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <LoginButton sx={{ mt: 3, width: "300px" }} />
+          </Box>
         </Show>
-        <Swiper />
       </Container>
-    </Box>
+    </Layout>
   )
 }
 

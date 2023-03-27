@@ -10,12 +10,23 @@ const theme = createTheme({
     // mode: "dark",
     primary: {
       // Purple and green play nicely together.
-      main: purple[500],
+      main: "#F50057",
     },
     secondary: {
       // This is green.A700 as hex.
       main: "#11cb5f",
     },
+    info: {
+      main: "#F50057",
+    },
+  },
+  typography: {
+    fontFamily: [
+      "Libre Baskerville",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+    ].join(","),
   },
 })
 

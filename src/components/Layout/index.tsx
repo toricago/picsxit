@@ -3,11 +3,15 @@ import { ParentComponent } from "solid-js"
 
 import { Box, Button, Container, Typography, Stack } from "@suid/material"
 
-const Layout: ParentComponent = ({ children }) => {
+type LayoutProps = {
+  bgcolor?: string
+}
+
+const Layout: ParentComponent<LayoutProps> = ({ children, bgcolor }) => {
   return (
-    <Box bgcolor={"#f0e7db"}>
+    <Box bgcolor={bgcolor}>
       <AppBar />
-      <Box minHeight={"calc(100vh - 80px)"} pt={10}>
+      <Box minHeight={"calc(100vh - 160px)"} py={10}>
         {children}
       </Box>
     </Box>

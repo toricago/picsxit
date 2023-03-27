@@ -18,7 +18,11 @@ function ResponsiveAppBar() {
   return (
     <AppBar
       position="fixed"
-      sx={{ bgcolor: "#ffffff40", backdropFilter: "blur(10px)", zIndex: 10 }}
+      elevation={0}
+      sx={{
+        // bgcolor: "#ffffff40", backdropFilter: "blur(10px)",
+        zIndex: 10,
+      }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>

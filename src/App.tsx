@@ -13,7 +13,6 @@ import { useNavigate } from "@solidjs/router"
 import { signIn } from "./components/Login"
 
 import useAuth from "./hooks/useAuth"
-import Layout from "./components/Layout/index"
 const Main = lazy(() => import("./pages/index"))
 const Lobby = lazy(() => import("./pages/Lobby"))
 const GameBoard = lazy(() => import("./pages/Game"))
@@ -48,14 +47,14 @@ const ProtectedRoute = (Component: Component) => () => {
 
 const App: Component = () => {
   return (
-    <Layout>
+    <div>
       <Toaster position="top-center" />
       <Routes>
         <Route path="/" component={Main} />
         <Route path="/:id" component={ProtectedRoute(Lobby)} />
         <Route path="/:id/game" component={ProtectedRoute(GameBoard)} />
       </Routes>
-    </Layout>
+    </div>
   )
 }
 
