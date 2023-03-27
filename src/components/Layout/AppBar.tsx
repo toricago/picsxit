@@ -20,13 +20,14 @@ function ResponsiveAppBar() {
       position="fixed"
       elevation={0}
       sx={{
-        // bgcolor: "#ffffff40", backdropFilter: "blur(10px)",
+        bgcolor: "transparent",
+        //  backdropFilter: "blur(10px)",
         zIndex: 10,
       }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ mr: 1 }} />
+          {/* <AdbIcon sx={{ mr: 1 }} /> */}
           <Typography
             variant="h6"
             noWrap
@@ -42,7 +43,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            PICSXIT
           </Typography>
           <Switch>
             <Match when={authState.user}>

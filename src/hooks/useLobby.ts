@@ -21,22 +21,24 @@ interface playerInterface {
 }
 
 interface LobbyDocument {
-  host: string
+  host?: string
   players: playerInterface[]
   lobbyState: "lobby" | "game" | "result"
-  created: Date
+  gameId?: string
+  created: Timestamp
 }
 
 export default function useLobby() {
   const navigate = useNavigate()
 
   async function createLobby() {
-    const doc = await addDoc(collection(db, "lobby"), {
+    const lobbyData: LobbyDocument = {
       host: authState?.user?.uid,
       players: [],
       lobbyState: "lobby",
       created: Timestamp.now(),
-    })
+    }
+    const doc = await addDoc(collection(db, "lobby"), lobbyData)
 
     return doc.id
   }

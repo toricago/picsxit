@@ -52,7 +52,7 @@ const Main: Component = () => {
   return (
     <Layout bgcolor={"#F50057"}>
       <Container maxWidth="sm">
-        <Paper sx={{ p: 5, mt: 5, textAlign: "center" }}>
+        <Paper sx={{ p: 5, mt: 2, textAlign: "center" }}>
           <Box
             component="img"
             src="https://res.cloudinary.com/dz4mll3dy/image/upload/v1679738770/grid_0_ihwp5q.png"
@@ -67,9 +67,6 @@ const Main: Component = () => {
             of cards created beautifully by ai to expand more of your
             imagination!
           </Typography>
-          {/* <Typography sx={{ mt: 3, mb: 2 }} fontWeight={500}>
-            Let's get started!!
-          </Typography> */}
           <Stack sx={{ mt: 4 }} direction="column" spacing={2}>
             <Button
               variant="contained"

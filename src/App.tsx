@@ -52,7 +52,7 @@ const App: Component = () => {
       <Routes>
         <Route path="/" component={Main} />
         <Route path="/:id" component={ProtectedRoute(Lobby)} />
-        <Route path="/:id/game" component={ProtectedRoute(GameBoard)} />
+        <Route path="/:id/game/:gameid" component={ProtectedRoute(GameBoard)} />
       </Routes>
     </div>
   )

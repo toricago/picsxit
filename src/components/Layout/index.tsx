@@ -1,7 +1,7 @@
 import AppBar from "./AppBar"
 import { ParentComponent } from "solid-js"
 
-import { Box, Button, Container, Typography, Stack } from "@suid/material"
+import { Box } from "@suid/material"
 
 type LayoutProps = {
   bgcolor?: string
