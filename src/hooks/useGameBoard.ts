@@ -33,7 +33,7 @@ export interface storyInterface {
   number: number
 }
 
-interface tableCardInterface {
+export interface tableCardInterface {
   playerId: string
   card?: cardInterface
 }
@@ -54,7 +54,7 @@ export interface handInterface {
 }
 
 // collections
-interface GameDocument {
+export interface GameDocument {
   players: playerInterface[]
   phase: "tellStory" | "putCardToTable" | "vote" | "result"
   roundsLeft: number
@@ -185,9 +185,57 @@ export default function useGameBoard() {
       })
   }
 
-  function putCardToTable() {}
+  function putCardToTable(
+    gameid: string,
+    hands: handInterface[],
+    tableCards: tableCardInterface[],
+    isLast: boolean
+  ) {
+    const gameRef = doc(db, "game", gameid)
+    let data: any = {
+      hands,
+      tableCards,
+      updated: Timestamp.now(),
+    }
+    // if last player put card to table change to vote
+    if (isLast) {
+      data.phase = "vote"
+    }
+    // create lobby
+    updateDoc(gameRef, data)
+      .then((docRef) => {
+        console.log("update successfully!")
+      })
+      .catch((error) => {
+        toast.error("error occured, please try again", {
+          duration: 5000,
+        })
+      })
+  }
 
-  function vote() {}
+  function vote(gameid: string, votes: voteInterface[], isLast: boolean) {
+    const gameRef = doc(db, "game", gameid)
+
+    let data: any = {
+      votes,
+      updated: Timestamp.now(),
+    }
+
+    // if last player put card to table change to vote
+    if (isLast) {
+      data.phase = "result"
+    }
+    // create lobby
+    updateDoc(gameRef, data)
+      .then((docRef) => {
+        console.log("update successfully!")
+      })
+      .catch((error) => {
+        toast.error("error occured, please try again", {
+          duration: 5000,
+        })
+      })
+  }
 
   function showResult() {}
 
@@ -195,5 +243,5 @@ export default function useGameBoard() {
 
   function forceSkip() {}
 
-  return { setUpGame, getGame, tellStory }
+  return { setUpGame, getGame, tellStory, putCardToTable, vote }
 }

@@ -1,24 +1,41 @@
-import { Button, Dialog, DialogContent, Box } from "@suid/material"
+import { Button, Dialog, DialogContent, Box, TextField } from "@suid/material"
+import { Match, Switch, Show, createSignal } from "solid-js"
 import { cardInterface } from "../hooks/useGameBoard"
+
+import { authState } from "../App"
 
 interface Props {
   card?: cardInterface | null
   onClose: () => void
   onTellStory: any
   onVote: any
-  onChooseCard: any
+  onPutCardToTable: any
+  tellerId: string
+  choseCard: boolean
+  voted: boolean
   phase: "tellStory" | "putCardToTable" | "vote" | "result"
 }
 
 export default function CardDialog(props: Props) {
-  let sentence: string = "test"
+  const [sentence, setSentence] = createSignal("")
 
-  const handleTellStory = () => {
-    props.onTellStory({ number: props.card?.number, sentence: sentence })
+  const checkTeller = () => {
+    if (authState.user?.uid === props.tellerId) {
+      return true
+    }
+    return false
   }
 
-  const handleClick = () => {
-    return props.phase === "tellStory" && handleTellStory()
+  const handleTellStory = () => {
+    props.onTellStory({ number: props.card?.number, sentence: sentence() })
+  }
+
+  const handlePutCardToTable = () => {
+    props.onPutCardToTable()
+  }
+
+  const handleVote = () => {
+    props.onVote()
   }
 
   return (
@@ -38,9 +55,45 @@ export default function CardDialog(props: Props) {
         />
       </DialogContent>
       <Box pb={3} textAlign="center">
-        <Button variant="contained" onClick={handleClick}>
-          confirm
-        </Button>
+        <Switch>
+          <Match when={props.phase === "tellStory" && checkTeller()}>
+            <Box px={3} mb={2}>
+              <TextField
+                fullWidth
+                size="small"
+                placeholder="sentence"
+                onKeyUp={(el: any) => {
+                  setSentence(el.target.value)
+                }}
+              />
+            </Box>
+            <Button
+              variant="contained"
+              disabled={!sentence()}
+              onClick={handleTellStory}
+            >
+              confirm
+            </Button>
+          </Match>
+          <Match
+            when={
+              props.phase === "putCardToTable" &&
+              !checkTeller() &&
+              !props.choseCard
+            }
+          >
+            <Button variant="contained" onClick={handlePutCardToTable}>
+              confirm
+            </Button>
+          </Match>
+          <Match
+            when={props.phase === "vote" && !checkTeller() && !props.voted}
+          >
+            <Button variant="contained" onClick={handleVote}>
+              confirm
+            </Button>
+          </Match>
+        </Switch>
       </Box>
     </Dialog>
   )

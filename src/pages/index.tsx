@@ -12,6 +12,7 @@ import {
   Paper,
   TextField,
   Grid,
+  Link,
 } from "@suid/material"
 import Layout from "../components/Layout/index"
 
@@ -104,6 +105,15 @@ const Main: Component = () => {
             <LoginButton sx={{ mt: 3, width: "300px" }} />
           </Box>
         </Show>
+        <Box mt={2} sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Link
+            href="https://www.ultraboardgames.com/dixit/game-rules.php"
+            color="inherit"
+            target="_blank"
+          >
+            Game Rules
+          </Link>
+        </Box>
       </Container>
     </Layout>
   )
